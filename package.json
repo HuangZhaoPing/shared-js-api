@@ -1,0 +1,57 @@
+{
+  "name": "shared-js-api",
+  "version": "0.2.4",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "lint": "eslint --fix --ext .js .",
+    "dev": "webpack-dev-server --config build/webpack.dev.js",
+    "build": "npm run docs && npm run compile && webpack --config build/webpack.prod.js",
+    "compile": "tsc",
+    "test": "jest",
+    "docs": "jsdoc2md --files ./src/index.ts --configure ./jsdoc2md.json > ./README.md",
+    "declaration": "tsc -d"
+  },
+  "keywords": [
+    "shared",
+    "common",
+    "js-api",
+    "typescript"
+  ],
+  "author": "HuangZhaoPing <395342674@qq.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HuangZhaoPing/shared-js-api"
+  },
+  "files": [
+    "dist",
+    "lib",
+    "index.d.ts"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.13.0",
+    "@types/jest": "^26.0.22",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
+    "eslint": "^7.21.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-webpack-plugin": "^2.5.2",
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "html-webpack-plugin": "^5.3.1",
+    "jest": "^26.6.3",
+    "jsdoc-babel": "^0.5.0",
+    "jsdoc-to-markdown": "^7.0.0",
+    "ts-jest": "^26.5.4",
+    "ts-loader": "^8.1.0",
+    "typescript": "^4.2.4",
+    "webpack": "^5.24.4",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^4.0.0-beta.0",
+    "webpack-merge": "^5.7.3"
+  },
+  "types": "index.d.ts"
+}
