@@ -381,16 +381,15 @@ export function decodeHTML (val: string): string {
  * @example
  * rgbToHex('rgb(11,22,33)') // #0b1621
  */
-export function rgbToHex (val: string): string {
-  let result = ''
-  const match = val.match(/rgb\s*\(((\d,?\s*)+)\)/)
+export function rgbToHex (val: string): string | null {
+  let result = null
+  const match = val.match(/^rgb\s*\(((\d,?\s*)+)\)$/)
   if (match && match[1]) {
-    const arr = match[1].split(',').slice(0, 3).map(item => item.trim())
-    arr.forEach((item, index) => {
-      if (index === 0) result += '#'
-      const hex = parseInt(item, 10).toString(16)
-      result += hex.length === 1 ? `0${hex}` : hex
+    const values = match[1].split(',').slice(0, 3).map(item => {
+      const hex = parseInt(item.trim(), 10).toString(16)
+      return hex.length === 1 ? `0${hex}` : hex
     })
+    result = `#${values.join('')}`
   }
   return result
 }
@@ -402,16 +401,17 @@ export function rgbToHex (val: string): string {
  * @example
  * hexToRgb('#0b1621') // rgb(11,22,33)
  */
- export function hexToRgb (val: string): string {
-  let result = ''
-  const match = val.match(/rgb\s*\(((\d,?\s*)+)\)/)
-  if (match && match[1]) {
-    const arr = match[1].split(',').slice(0, 3).map(item => item.trim())
-    arr.forEach((item, index) => {
-      if (index === 0) result += '#'
-      const hex = parseInt(item, 10).toString(16)
-      result += hex.length === 1 ? `0${hex}` : hex
-    })
+export function hexToRgb (val: string): string | null {
+  let result = null
+  const match = val.match(/^#([a-fA-F\d]{6}|[a-fA-F\d]{3})$/)
+  if (match) {
+    let target = match[1]
+    if (target.length === 3) target = target.replace(/./g, s => s + s)
+    const values = []
+    for (let i = 0; i < 3; i++) {
+      values.push(parseInt(target.substr(i * 2, 2), 16))
+    }
+    result = `rgb(${values.join(',')})`
   }
   return result
 }
