@@ -1,7 +1,7 @@
 /*!
  * shared-js-api.js
  * description: Provide shared js api
- * version: 0.2.3
+ * version: 0.2.5
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -72,7 +72,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "pruneEmpty": function() { return /* binding */ pruneEmpty; },
 /* harmony export */   "serialize": function() { return /* binding */ serialize; },
 /* harmony export */   "encodeHTML": function() { return /* binding */ encodeHTML; },
-/* harmony export */   "decodeHTML": function() { return /* binding */ decodeHTML; }
+/* harmony export */   "decodeHTML": function() { return /* binding */ decodeHTML; },
+/* harmony export */   "rgbToHex": function() { return /* binding */ rgbToHex; },
+/* harmony export */   "hexToRgb": function() { return /* binding */ hexToRgb; }
 /* harmony export */ });
 /**
  * @description 获取 url 查询参数
@@ -440,6 +442,47 @@ function decodeHTML(val) {
     var output = temp.innerText;
     temp = null;
     return output;
+}
+/**
+ * @description rgb 颜色转 16 进制颜色
+ * @param { string } val rgb 颜色
+ * @returns { string } 转换后的 16 进制颜色
+ * @example
+ * rgbToHex('rgb(11,22,33)') // #0b1621
+ */
+function rgbToHex(val) {
+    var result = null;
+    var match = val.match(/^rgb\s*\(((\d,?\s*)+)\)$/);
+    if (match && match[1]) {
+        var values = match[1].split(',').slice(0, 3).map(function (item) {
+            var hex = parseInt(item.trim(), 10).toString(16);
+            return hex.length === 1 ? "0" + hex : hex;
+        });
+        result = "#" + values.join('');
+    }
+    return result;
+}
+/**
+ * @description 16 进制颜色转 rgb 颜色
+ * @param { string } val 16 进制颜色
+ * @returns { string } 转换后的 rgb 颜色
+ * @example
+ * hexToRgb('#0b1621') // rgb(11,22,33)
+ */
+function hexToRgb(val) {
+    var result = null;
+    var match = val.match(/^#([a-fA-F\d]{6}|[a-fA-F\d]{3})$/);
+    if (match) {
+        var target = match[1];
+        if (target.length === 3)
+            target = target.replace(/./g, function (s) { return s + s; });
+        var values = [];
+        for (var i = 0; i < 3; i++) {
+            values.push(parseInt(target.substr(i * 2, 2), 16));
+        }
+        result = "rgb(" + values.join(',') + ")";
+    }
+    return result;
 }
 
 /******/ 	return __webpack_exports__;

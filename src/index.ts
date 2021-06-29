@@ -373,3 +373,45 @@ export function decodeHTML (val: string): string {
   temp = null
   return output
 }
+
+/**
+ * @description rgb 颜色转 16 进制颜色
+ * @param { string } val rgb 颜色
+ * @returns { string } 转换后的 16 进制颜色
+ * @example
+ * rgbToHex('rgb(11,22,33)') // #0b1621
+ */
+export function rgbToHex (val: string): string | null {
+  let result = null
+  const match = val.match(/^rgb\s*\(((\d,?\s*)+)\)$/)
+  if (match && match[1]) {
+    const values = match[1].split(',').slice(0, 3).map(item => {
+      const hex = parseInt(item.trim(), 10).toString(16)
+      return hex.length === 1 ? `0${hex}` : hex
+    })
+    result = `#${values.join('')}`
+  }
+  return result
+}
+
+/**
+ * @description 16 进制颜色转 rgb 颜色
+ * @param { string } val 16 进制颜色
+ * @returns { string } 转换后的 rgb 颜色
+ * @example
+ * hexToRgb('#0b1621') // rgb(11,22,33)
+ */
+export function hexToRgb (val: string): string | null {
+  let result = null
+  const match = val.match(/^#([a-fA-F\d]{6}|[a-fA-F\d]{3})$/)
+  if (match) {
+    let target = match[1]
+    if (target.length === 3) target = target.replace(/./g, s => s + s)
+    const values = []
+    for (let i = 0; i < 3; i++) {
+      values.push(parseInt(target.substr(i * 2, 2), 16))
+    }
+    result = `rgb(${values.join(',')})`
+  }
+  return result
+}

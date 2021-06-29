@@ -25,3 +25,5 @@ export declare function pruneEmpty (val: Record<string, any>): Record<string, an
 export declare function serialize (val: Record<string, any>): Record<string, any>
 export declare function encodeHTML (val: string): string
 export declare function decodeHTML (val: string): string
+export declare function rgbToHex (val: string): string | null
+export declare function hexToRgb (val: string): string | null

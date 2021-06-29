@@ -67,6 +67,12 @@
 <dt><a href="#decodeHTML">decodeHTML(val)</a> ⇒ <code>string</code></dt>
 <dd><p>与 encodeHTML 相反，对字符串进行 html 解码</p>
 </dd>
+<dt><a href="#rgbToHex">rgbToHex(val)</a> ⇒ <code>string</code></dt>
+<dd><p>rgb 颜色转 16 进制颜色</p>
+</dd>
+<dt><a href="#hexToRgb">hexToRgb(val)</a> ⇒ <code>string</code></dt>
+<dd><p>16 进制颜色转 rgb 颜色</p>
+</dd>
 </dl>
 
 <a name="getQueryString"></a>
@@ -449,4 +455,36 @@ encodeHTML('<div>hello</div>') // &lt;div&gt;hello&lt;/div&gt;
 **Example**  
 ```js
 decodeHTML('&lt;div&gt;hello&lt;/div&gt;') // <div>hello</div>
+```
+<a name="rgbToHex"></a>
+
+## rgbToHex(val) ⇒ <code>string</code>
+rgb 颜色转 16 进制颜色
+
+**Kind**: global function  
+**Returns**: <code>string</code> - 转换后的 16 进制颜色  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| val | <code>string</code> | rgb 颜色 |
+
+**Example**  
+```js
+rgbToHex('rgb(11,22,33)') // #0b1621
+```
+<a name="hexToRgb"></a>
+
+## hexToRgb(val) ⇒ <code>string</code>
+16 进制颜色转 rgb 颜色
+
+**Kind**: global function  
+**Returns**: <code>string</code> - 转换后的 rgb 颜色  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| val | <code>string</code> | 16 进制颜色 |
+
+**Example**  
+```js
+hexToRgb('#0b1621') // rgb(11,22,33)
 ```
