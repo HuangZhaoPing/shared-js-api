@@ -1,4 +1,4 @@
-/* version: 0.2.6 */
+/* version: 0.2.7 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -319,9 +319,15 @@
   }
   /**
    * @description 验证参数
-   * @param { string } type 要验证类型，手机号：mobilePhone、邮箱：email、18位身份证：identityCard
+   * @param { string } type 要验证类型，11 位手机号：mobilePhone、邮箱：email、18 位身份证：identityCard
    * @param { string | number } val 要验证的值
    * @returns { string } 结果
+   * @example
+   * validate('mobilePhone', '13122222222') // true
+   * validate('mobilePhone', '11111111111') // false
+   *
+   * validate('email', '32d@xx.cc') // true
+   * validate('email', '32d.cc') // false
    */
   function validate(type, val) {
       if (isEmpty(val))

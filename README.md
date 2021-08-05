@@ -414,6 +414,14 @@ decodeHTML('&lt;div&gt;hello&lt;/div&gt;') // <div>hello</div>
 
 | Param | Type | Description |
 | --- | --- | --- |
-| type | <code>string</code> | 要验证类型，手机号：mobilePhone、邮箱：email、18位身份证：identityCard |
+| type | <code>string</code> | 要验证类型，11 位手机号：mobilePhone、邮箱：email、18 位身份证：identityCard |
 | val | <code>string</code> \| <code>number</code> | 要验证的值 |
 
+**Example**  
+```js
+validate('mobilePhone', '13122222222') // true
+validate('mobilePhone', '11111111111') // false
+
+validate('email', '32d@xx.cc') // true
+validate('email', '32d.cc') // false
+```
