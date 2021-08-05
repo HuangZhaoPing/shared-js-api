@@ -1,4 +1,4 @@
-/* version: 0.2.5 */
+/* version: 0.2.6 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -290,61 +290,6 @@
       return val === null || val === undefined || val === '';
   }
   /**
-   * @description 过滤对象空值属性
-   * @param { object } val 要过滤的对象
-   * @returns { object } 过滤后的对象
-   * @example
-   * const obj = {
-   *   a: null,
-   *   b: '',
-   *   c: undefined,
-   *   d: 'hello'
-   * }
-   * pruneEmpty(obj) // { d: hello }
-   */
-  function pruneEmpty(val) {
-      if (val) {
-          var o_1 = {};
-          Object.entries(val).forEach(function (_a) {
-              var key = _a[0], value = _a[1];
-              if (!isEmpty(value)) {
-                  o_1[key] = value;
-              }
-          });
-          return o_1;
-      }
-  }
-  /**
-   * @description 将对象内的对象、数组属性转成 json
-   * @param { object } val 要转换的对象
-   * @returns { object } 转换后的对象
-   * @example
-   * const obj = {
-   *   a: [ 1, 2, 3 ],
-   *   b: { a: 1 },
-   *   c: 'hello'
-   * }
-   * serialize(obj) // { a: '[ 1, 2, 3 ]', b: '{ "a": 1 }', c: 'hello' }
-   */
-  function serialize(val) {
-      var o = {};
-      Object.entries(val).forEach(function (_a) {
-          var key = _a[0], value = _a[1];
-          if (isObject(value) || isArray(value)) {
-              try {
-                  o[key] = JSON.stringify(value);
-              }
-              catch (error) {
-                  o[key] = value;
-              }
-          }
-          else {
-              o[key] = value;
-          }
-      });
-      return o;
-  }
-  /**
    * @description 对 html 代码进行编码
    * @param { string } val html 代码
    * @returns { string } 编码后的字符串
@@ -373,45 +318,28 @@
       return output;
   }
   /**
-   * @description rgb 颜色转 16 进制颜色
-   * @param { string } val rgb 颜色
-   * @returns { string } 转换后的 16 进制颜色
-   * @example
-   * rgbToHex('rgb(11,22,33)') // #0b1621
+   * @description 验证参数
+   * @param { string } type 要验证类型，手机号：mobilePhone、邮箱：email、18位身份证：identityCard
+   * @param { string | number } val 要验证的值
+   * @returns { string } 结果
    */
-  function rgbToHex(val) {
-      var result = null;
-      var match = val.match(/^rgb\s*\(((\d,?\s*)+)\)$/);
-      if (match && match[1]) {
-          var values = match[1].split(',').slice(0, 3).map(function (item) {
-              var hex = parseInt(item.trim(), 10).toString(16);
-              return hex.length === 1 ? "0" + hex : hex;
-          });
-          result = "#" + values.join('');
-      }
-      return result;
-  }
-  /**
-   * @description 16 进制颜色转 rgb 颜色
-   * @param { string } val 16 进制颜色
-   * @returns { string } 转换后的 rgb 颜色
-   * @example
-   * hexToRgb('#0b1621') // rgb(11,22,33)
-   */
-  function hexToRgb(val) {
-      var result = null;
-      var match = val.match(/^#([a-fA-F\d]{6}|[a-fA-F\d]{3})$/);
-      if (match) {
-          var target = match[1];
-          if (target.length === 3)
-              target = target.replace(/./g, function (s) { return s + s; });
-          var values = [];
-          for (var i = 0; i < 3; i++) {
-              values.push(parseInt(target.substr(i * 2, 2), 16));
+  function validate(type, val) {
+      if (isEmpty(val))
+          return false;
+      switch (type) {
+          case 'mobilePhone': {
+              return /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/.test(val);
           }
-          result = "rgb(" + values.join(',') + ")";
+          case 'email': {
+              return /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(val);
+          }
+          case 'identityCard': {
+              return /^[1-9]\d{5}(19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/.test(val);
+          }
+          default: {
+              return false;
+          }
       }
-      return result;
   }
 
   exports.decodeHTML = decodeHTML;
@@ -425,7 +353,6 @@
   exports.getRangeDateOfMonth = getRangeDateOfMonth;
   exports.getRangeDateOfWeek = getRangeDateOfWeek;
   exports.getSuffix = getSuffix;
-  exports.hexToRgb = hexToRgb;
   exports.isArray = isArray;
   exports.isDate = isDate;
   exports.isEmpty = isEmpty;
@@ -433,11 +360,9 @@
   exports.isObject = isObject;
   exports.isString = isString;
   exports.isSymbol = isSymbol;
-  exports.pruneEmpty = pruneEmpty;
-  exports.rgbToHex = rgbToHex;
-  exports.serialize = serialize;
   exports.toNumber = toNumber;
   exports.toRawType = toRawType;
+  exports.validate = validate;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 

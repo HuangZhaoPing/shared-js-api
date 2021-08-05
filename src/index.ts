@@ -1,4 +1,4 @@
-import { IDateConfig } from '../index.d'
+import { DateConfig, ValidateType } from '../index.d'
 
 /**
  * @description 获取 url 查询参数
@@ -192,7 +192,7 @@ export function toNumber (val: any): any {
  * getFirstDateOfMonth({ fmt: 'yyyy-MM-dd hh:mm:ss' }) // 2021-04-01 00:00:00
  * getFirstDateOfMonth({ offset: 1, fmt: 'yyyy-MM-dd hh:mm:ss' }) // 2021-05-01 00:00:00
  */
-export function getFirstDateOfMonth ({ offset = 0, fmt }: IDateConfig = {}): string | Date {
+export function getFirstDateOfMonth ({ offset = 0, fmt }: DateConfig = {}): string | Date {
   const date = new Date()
   date.setMonth(date.getMonth() + offset)
   date.setDate(1)
@@ -212,7 +212,7 @@ export function getFirstDateOfMonth ({ offset = 0, fmt }: IDateConfig = {}): str
  * getLastDateOfMonth({ fmt: 'yyyy-MM-dd hh:mm:ss' }) // 2021-04-30 23:59:59
  * getLastDateOfMonth({ offset: 1, fmt: 'yyyy-MM-dd hh:mm:ss' }) // 2021-05-31 23:59:59
  */
-export function getLastDateOfMonth ({ offset = 0, fmt }: IDateConfig = {}): string | Date {
+export function getLastDateOfMonth ({ offset = 0, fmt }: DateConfig = {}): string | Date {
   const date = new Date()
   date.setMonth(date.getMonth() + 1 + offset)
   date.setDate(0)
@@ -232,7 +232,7 @@ export function getLastDateOfMonth ({ offset = 0, fmt }: IDateConfig = {}): stri
  * getRangeDateOfMonth({ fmt: 'yyyy-MM-dd hh:mm:ss' }) // ['2021-04-01 00:00:00', '2021-04-30 23:59:59']
  * getRangeDateOfMonth({ offset: 1, fmt: 'yyyy-MM-dd hh:mm:ss' }) // ['2021-05-01 00:00:00', '2021-05-31 23:59:59']
  */
-export function getRangeDateOfMonth ({ offset = 0, fmt }: IDateConfig = {}): Array<string | Date> {
+export function getRangeDateOfMonth ({ offset = 0, fmt }: DateConfig = {}): Array<string | Date> {
   const start = getFirstDateOfMonth({ offset, fmt })
   const end = getLastDateOfMonth({ offset, fmt })
   return [start, end]
@@ -249,7 +249,7 @@ export function getRangeDateOfMonth ({ offset = 0, fmt }: IDateConfig = {}): Arr
  * getRangeDateOfWeek({ fmt: 'yyyy-MM-dd hh:mm:ss' }) // ['2021-04-19 00:00:00', '2021-04-25 23:59:59']
  * getRangeDateOfWeek({ offset: 1, fmt: 'yyyy-MM-dd hh:mm:ss' }) // ['2021-04-26 00:00:00', '2021-05-02 23:59:59']
  */
-export function getRangeDateOfWeek ({ offset = 0, fmt }: IDateConfig = {}): Array<string | Date> {
+export function getRangeDateOfWeek ({ offset = 0, fmt }: DateConfig = {}): Array<string | Date> {
   const date = new Date()
   const current = date.getDate()
   const day = date.getDay() || 7
@@ -319,4 +319,28 @@ export function decodeHTML (val: string): string {
   const output = temp.innerText
   temp = null
   return output
+}
+
+/**
+ * @description 验证参数
+ * @param { string } type 要验证类型，手机号：mobilePhone、邮箱：email、18位身份证：identityCard
+ * @param { string | number } val 要验证的值
+ * @returns { string } 结果
+ */
+export function validate (type: ValidateType, val: string): boolean {
+  if (isEmpty(val)) return false
+  switch (type) {
+    case 'mobilePhone': {
+      return /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/.test(val)
+    }
+    case 'email': {
+      return /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(val)
+    }
+    case 'identityCard': {
+      return /^[1-9]\d{5}(19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/.test(val)
+    }
+    default: {
+      return false
+    }
+  }
 }

@@ -55,23 +55,14 @@
 <dt><a href="#isEmpty">isEmpty(val)</a> ⇒ <code>boolean</code></dt>
 <dd><p>是否为 null、undefined 或者 &#39;&#39;</p>
 </dd>
-<dt><a href="#pruneEmpty">pruneEmpty(val)</a> ⇒ <code>object</code></dt>
-<dd><p>过滤对象空值属性</p>
-</dd>
-<dt><a href="#serialize">serialize(val)</a> ⇒ <code>object</code></dt>
-<dd><p>将对象内的对象、数组属性转成 json</p>
-</dd>
 <dt><a href="#encodeHTML">encodeHTML(val)</a> ⇒ <code>string</code></dt>
 <dd><p>对 html 代码进行编码</p>
 </dd>
 <dt><a href="#decodeHTML">decodeHTML(val)</a> ⇒ <code>string</code></dt>
 <dd><p>与 encodeHTML 相反，对字符串进行 html 解码</p>
 </dd>
-<dt><a href="#rgbToHex">rgbToHex(val)</a> ⇒ <code>string</code></dt>
-<dd><p>rgb 颜色转 16 进制颜色</p>
-</dd>
-<dt><a href="#hexToRgb">hexToRgb(val)</a> ⇒ <code>string</code></dt>
-<dd><p>16 进制颜色转 rgb 颜色</p>
+<dt><a href="#validate">validate(type, val)</a> ⇒ <code>string</code></dt>
+<dd><p>验证参数</p>
 </dd>
 </dl>
 
@@ -381,49 +372,6 @@ isEmpty(null) // true
 isEmpty(undefined) // true
 isEmpty(0) // false
 ```
-<a name="pruneEmpty"></a>
-
-## pruneEmpty(val) ⇒ <code>object</code>
-过滤对象空值属性
-
-**Kind**: global function  
-**Returns**: <code>object</code> - 过滤后的对象  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| val | <code>object</code> | 要过滤的对象 |
-
-**Example**  
-```js
-const obj = {
-  a: null,
-  b: '',
-  c: undefined,
-  d: 'hello'
-}
-pruneEmpty(obj) // { d: hello }
-```
-<a name="serialize"></a>
-
-## serialize(val) ⇒ <code>object</code>
-将对象内的对象、数组属性转成 json
-
-**Kind**: global function  
-**Returns**: <code>object</code> - 转换后的对象  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| val | <code>object</code> | 要转换的对象 |
-
-**Example**  
-```js
-const obj = {
-  a: [ 1, 2, 3 ],
-  b: { a: 1 },
-  c: 'hello'
-}
-serialize(obj) // { a: '[ 1, 2, 3 ]', b: '{ "a": 1 }', c: 'hello' }
-```
 <a name="encodeHTML"></a>
 
 ## encodeHTML(val) ⇒ <code>string</code>
@@ -456,35 +404,16 @@ encodeHTML('<div>hello</div>') // &lt;div&gt;hello&lt;/div&gt;
 ```js
 decodeHTML('&lt;div&gt;hello&lt;/div&gt;') // <div>hello</div>
 ```
-<a name="rgbToHex"></a>
+<a name="validate"></a>
 
-## rgbToHex(val) ⇒ <code>string</code>
-rgb 颜色转 16 进制颜色
+## validate(type, val) ⇒ <code>string</code>
+验证参数
 
 **Kind**: global function  
-**Returns**: <code>string</code> - 转换后的 16 进制颜色  
+**Returns**: <code>string</code> - 结果  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| val | <code>string</code> | rgb 颜色 |
+| type | <code>string</code> | 要验证类型，手机号：mobilePhone、邮箱：email、18位身份证：identityCard |
+| val | <code>string</code> \| <code>number</code> | 要验证的值 |
 
-**Example**  
-```js
-rgbToHex('rgb(11,22,33)') // #0b1621
-```
-<a name="hexToRgb"></a>
-
-## hexToRgb(val) ⇒ <code>string</code>
-16 进制颜色转 rgb 颜色
-
-**Kind**: global function  
-**Returns**: <code>string</code> - 转换后的 rgb 颜色  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| val | <code>string</code> | 16 进制颜色 |
-
-**Example**  
-```js
-hexToRgb('#0b1621') // rgb(11,22,33)
-```
