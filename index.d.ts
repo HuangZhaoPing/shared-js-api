@@ -12,6 +12,8 @@ export declare function isArray (val: any): boolean
 export declare function isDate (val: any): boolean
 export declare function isNumber (val: any): boolean
 export declare function isSymbol (val: any): boolean
+export declare function isFunction (val: any): boolean
+export declare function isPromise (val: any): boolean
 export declare function formatDate (val: Date, fmt?: string): string
 export declare function formatTime (val: number, fmt?: string): string
 export declare function toNumber (val: any): any

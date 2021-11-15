@@ -105,6 +105,24 @@ export function isSymbol (val: any): boolean {
 }
 
 /**
+ * @description 是否为 Function
+ * @param { * } val 任意参数
+ * @return { boolean } 结果
+ */
+export function isFunction (val: any): boolean {
+  return toRawType(val) === 'Function'
+}
+
+/**
+ * @description 是否为 Promise
+ * @param { * } val 任意参数
+ * @return { boolean } 结果
+ */
+export function isPromise (val: any): boolean {
+  return toRawType(val) === 'Promise'
+}
+
+/**
  * @description Date 转字符串
  * @param { date } val Date 对象
  * @param { string } [ fmt = yyyy-MM-dd ] 格式，默认 yyyy-MM-dd

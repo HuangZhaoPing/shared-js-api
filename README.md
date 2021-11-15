@@ -28,6 +28,12 @@
 <dt><a href="#isSymbol">isSymbol(val)</a> ⇒ <code>boolean</code></dt>
 <dd><p>是否为 Symbol</p>
 </dd>
+<dt><a href="#isFunction">isFunction(val)</a> ⇒ <code>boolean</code></dt>
+<dd><p>是否为 Function</p>
+</dd>
+<dt><a href="#isPromise">isPromise(val)</a> ⇒ <code>boolean</code></dt>
+<dd><p>是否为 Promise</p>
+</dd>
 <dt><a href="#formatDate">formatDate(val, [fmt])</a> ⇒ <code>string</code></dt>
 <dd><p>Date 转字符串</p>
 </dd>
@@ -188,6 +194,30 @@ isString('hello') // true
 
 ## isSymbol(val) ⇒ <code>boolean</code>
 是否为 Symbol
+
+**Kind**: global function  
+**Returns**: <code>boolean</code> - 结果  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| val | <code>\*</code> | 任意参数 |
+
+<a name="isFunction"></a>
+
+## isFunction(val) ⇒ <code>boolean</code>
+是否为 Function
+
+**Kind**: global function  
+**Returns**: <code>boolean</code> - 结果  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| val | <code>\*</code> | 任意参数 |
+
+<a name="isPromise"></a>
+
+## isPromise(val) ⇒ <code>boolean</code>
+是否为 Promise
 
 **Kind**: global function  
 **Returns**: <code>boolean</code> - 结果  

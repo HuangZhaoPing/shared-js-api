@@ -1,4 +1,4 @@
-/* version: 0.2.7 */
+/* version: 0.2.8 */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -101,6 +101,22 @@
    */
   function isSymbol(val) {
       return toRawType(val) === 'Symbol';
+  }
+  /**
+   * @description 是否为 Function
+   * @param { * } val 任意参数
+   * @return { boolean } 结果
+   */
+  function isFunction(val) {
+      return toRawType(val) === 'Function';
+  }
+  /**
+   * @description 是否为 Promise
+   * @param { * } val 任意参数
+   * @return { boolean } 结果
+   */
+  function isPromise(val) {
+      return toRawType(val) === 'Promise';
   }
   /**
    * @description Date 转字符串
@@ -362,8 +378,10 @@
   exports.isArray = isArray;
   exports.isDate = isDate;
   exports.isEmpty = isEmpty;
+  exports.isFunction = isFunction;
   exports.isNumber = isNumber;
   exports.isObject = isObject;
+  exports.isPromise = isPromise;
   exports.isString = isString;
   exports.isSymbol = isSymbol;
   exports.toNumber = toNumber;
